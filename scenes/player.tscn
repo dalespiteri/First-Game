@@ -49,7 +49,7 @@ script = ExtResource("1_huaga")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_rs5xe")
 autoplay = "default"
-frame_progress = 0.634574
+frame_progress = 0.510438
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
