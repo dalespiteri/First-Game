@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://clhqll4sycidf"]
+[gd_scene load_steps=14 format=3 uid="uid://clhqll4sycidf"]
 
 [ext_resource type="PackedScene" uid="uid://c1g0hefhlkulw" path="res://scenes/player.tscn" id="1_iy3of"]
 [ext_resource type="Texture2D" uid="uid://c1aeeedep32p3" path="res://assets/sprites/world_tileset.png" id="2_o8kkm"]
 [ext_resource type="PackedScene" uid="uid://braiyfjd4fugb" path="res://scenes/platform.tscn" id="3_dljpg"]
 [ext_resource type="PackedScene" uid="uid://d0ko74yc3gsa0" path="res://scenes/coin.tscn" id="4_e8mxc"]
 [ext_resource type="PackedScene" uid="uid://cia4xo0aefjnd" path="res://scenes/killzone.tscn" id="5_inv8m"]
+[ext_resource type="PackedScene" uid="uid://2jle73mntedh" path="res://scenes/slime.tscn" id="6_3hur0"]
+[ext_resource type="FontFile" uid="uid://buhykekwykjc8" path="res://assets/fonts/PixelOperator8.ttf" id="7_ygnvp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b0fvx"]
 texture = ExtResource("2_o8kkm")
@@ -545,3 +547,18 @@ libraries = {
 "": SubResource("AnimationLibrary_kddyc")
 }
 autoplay = "move"
+
+[node name="Slime" parent="." instance=ExtResource("6_3hur0")]
+position = Vector2(137, 4)
+
+[node name="Lables" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Lables"]
+offset_left = -97.0
+offset_top = 68.0
+offset_right = 28.0
+offset_bottom = 91.0
+theme_override_colors/font_color = Color(0.956863, 0.6, 0.564706, 1)
+theme_override_fonts/font = ExtResource("7_ygnvp")
+theme_override_font_sizes/font_size = 8
+text = "Press Space to Jump"
