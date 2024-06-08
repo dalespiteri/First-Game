@@ -11,14 +11,14 @@ var score = 0
 
 func add_score(points: int):
 	score += points
-	score_hud.text = "Score: " + str(score)
+	score_hud.text = "Superbucks: " + str(score)
 
 func update_health(hp):
 	health_hud.text = "Health: " + str(hp)
 
 func display_game_over():
 	slime.get_node("Killzone").queue_free()
-	health_hud.text = "You're fucking dead bro..."
+	health_hud.text = "You're SO fucking dead bro..."
 	game_over.visible = true
 	Engine.time_scale = 0.4
 	timer.start()
