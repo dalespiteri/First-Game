@@ -1,5 +1,9 @@
 extends Area2D
 
-func _on_body_entered(body):
-	print("got a coin!")
-	queue_free()
+@onready var game_manager = %GameManager
+@onready var animation_player = $AnimationPlayer
+
+func _on_body_entered(_body):
+	game_manager.add_score(1)
+	animation_player.play("pickup")
+

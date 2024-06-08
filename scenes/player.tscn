@@ -1,7 +1,25 @@
-[gd_scene load_steps=26 format=3 uid="uid://c1g0hefhlkulw"]
+[gd_scene load_steps=32 format=3 uid="uid://c1g0hefhlkulw"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_huaga"]
 [ext_resource type="Texture2D" uid="uid://b1538488kaa5d" path="res://assets/sprites/knight.png" id="1_td5lf"]
+[ext_resource type="AudioStream" uid="uid://ceeon55iw1txa" path="res://assets/sounds/jump.wav" id="3_ihpaa"]
+[ext_resource type="AudioStream" uid="uid://bbdaqqo35dvj8" path="res://assets/sounds/hurt.wav" id="4_skhpr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_305y4"]
+atlas = ExtResource("1_td5lf")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a4bg"]
+atlas = ExtResource("1_td5lf")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mre64"]
+atlas = ExtResource("1_td5lf")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f3xj"]
+atlas = ExtResource("1_td5lf")
+region = Rect2(96, 224, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p4vbb"]
 atlas = ExtResource("1_td5lf")
@@ -91,6 +109,23 @@ region = Rect2(224, 96, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_305y4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5a4bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mre64")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_6f3xj")
+}],
+"loop": false,
+"name": &"death",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_p4vbb")
 }, {
 "duration": 1.0,
@@ -177,10 +212,22 @@ script = ExtResource("1_huaga")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_rs5xe")
-animation = &"jump"
+animation = &"death"
 autoplay = "idle"
-frame_progress = 0.803242
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_1xyjv")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ihpaa")
+bus = &"SFX"
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_skhpr")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

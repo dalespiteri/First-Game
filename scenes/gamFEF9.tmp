@@ -1,6 +1,5 @@
-[gd_scene load_steps=17 format=3 uid="uid://clhqll4sycidf"]
+[gd_scene load_steps=15 format=3 uid="uid://clhqll4sycidf"]
 
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_imnck"]
 [ext_resource type="PackedScene" uid="uid://c1g0hefhlkulw" path="res://scenes/player.tscn" id="1_iy3of"]
 [ext_resource type="Texture2D" uid="uid://c1aeeedep32p3" path="res://assets/sprites/world_tileset.png" id="2_o8kkm"]
 [ext_resource type="PackedScene" uid="uid://braiyfjd4fugb" path="res://scenes/platform.tscn" id="3_dljpg"]
@@ -8,11 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cia4xo0aefjnd" path="res://scenes/killzone.tscn" id="5_inv8m"]
 [ext_resource type="PackedScene" uid="uid://2jle73mntedh" path="res://scenes/slime.tscn" id="6_3hur0"]
 [ext_resource type="FontFile" uid="uid://buhykekwykjc8" path="res://assets/fonts/PixelOperator8.ttf" id="7_ygnvp"]
-[ext_resource type="FontFile" uid="uid://cupiet48qv2eg" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="8_rdyrg"]
-
-[sub_resource type="Theme" id="Theme_lwihp"]
-default_font = ExtResource("8_rdyrg")
-default_font_size = 24
+[ext_resource type="PackedScene" uid="uid://dm6cbna5e3tga" path="res://scenes/game_over.tscn" id="8_7e37e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b0fvx"]
 texture = ExtResource("2_o8kkm")
@@ -460,58 +455,6 @@ _data = {
 
 [node name="Game" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("1_imnck")
-
-[node name="Timer" type="Timer" parent="GameManager"]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="GameManager"]
-
-[node name="ScoreHUD" type="Label" parent="GameManager/CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -71.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 33.0
-grow_horizontal = 0
-theme_override_fonts/font = ExtResource("8_rdyrg")
-theme_override_font_sizes/font_size = 24
-text = "Score: 0"
-horizontal_alignment = 2
-
-[node name="HealthHUD" type="Label" parent="GameManager/CanvasLayer"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 145.0
-offset_bottom = 34.0
-theme_override_fonts/font = ExtResource("8_rdyrg")
-theme_override_font_sizes/font_size = 24
-text = "Health: 3"
-
-[node name="GameOver" type="ColorRect" parent="GameManager/CanvasLayer"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.835294)
-
-[node name="Label" type="Label" parent="GameManager/CanvasLayer/GameOver"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_lwihp")
-text = "Game Over"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ftv53")
 format = 2
@@ -538,6 +481,9 @@ position_smoothing_enabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 position = Vector2(39, 161)
 shape = SubResource("WorldBoundaryShape2D_yd51h")
+
+[node name="GameOver" parent="Killzone" instance=ExtResource("8_7e37e")]
+visible = true
 
 [node name="Coins" type="Node" parent="."]
 
@@ -620,5 +566,3 @@ theme_override_colors/font_color = Color(0.956863, 0.6, 0.564706, 1)
 theme_override_fonts/font = ExtResource("7_ygnvp")
 theme_override_font_sizes/font_size = 8
 text = "Press Space to Jump"
-
-[connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
